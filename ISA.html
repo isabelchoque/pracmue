@@ -1,0 +1,128 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link href="../k/css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="../k/css/style.css" rel="stylesheet">
+	<link href="color/default.css" rel="stylesheet">
+	<link rel="shortcut icon" href="../k/img/favicon.ico">
+	<title>Venta de Muebles</title>
+	<style type="text/css">
+		.control {
+			object-fit: cover;
+			width: 400px;
+			height: 400px;
+		}
+		body
+{
+    background-color: #FF8000;
+}
+	</style>
+	<script type="text/javascript">
+		var vimg = ["mesa.jpg","silla.jpg",
+		"cama.jpg","ropero.jpg","comoda.jpg"];
+		var vtit = ["H/mesa 150 Bs","H/silla 80 Bs",
+		"H/cama 500 Bs.","H/ropero 1850 Bs.","H/comoda 250 Bs."];
+		var Indice=0;
+		var pedidos=[0,0,0,0,0];
+		var precio=[150,80,500,1850,250];
+		var tPagar=0;
+		function comprar(){
+			pedidos[Indice]=pedidos[Indice]+1;
+			document.getElementById("nham").value=pedidos[Indice];
+			tPagar+=precio[Indice];
+			document.getElementById("tp").value=tPagar;
+			tpedido="";
+			for (i=0;i<5;i++)
+				tpedido=tpedido+pedidos[i]+";";
+			document.getElementById("x").value=tpedido;
+		}
+		
+		function vende(qham){
+		    Indice=qham;
+			pedidos[Indice]=pedidos[Indice]+1;
+			document.getElementById("nham").value=pedidos[Indice];
+			tPagar+=precio[Indice];
+			document.getElementById("tp").value=tPagar;
+			tpedido="";
+			for (i=0;i<4;i++)
+				tpedido=tpedido+pedidos[i]+";";
+			document.getElementById("x").value=tpedido;
+		    var qimg = document.getElementById("imagen");
+			qimg.src=vimg[Indice];
+			document.getElementById("nham").value=pedidos[Indice];
+			document.getElementById("titulo").value=vtit[Indice];
+		}
+		function devolver(){
+			if (pedidos[Indice]>0) {
+				pedidos[Indice]=pedidos[Indice]-1;
+			    document.getElementById("nham").value=pedidos[Indice];
+			    tPagar-=precio[Indice];
+			    document.getElementById("tp").value=tPagar;
+			}
+			else
+				alert("No puedes hacer eso Caiman!!!");
+			tpedido="";
+			for (i=0;i<5;i++)
+				tpedido=tpedido+pedidos[i]+";";
+			document.getElementById("x").value=tpedido;
+		}
+		function anterior(){
+		    if (Indice==0) Indice=4;	
+		    else Indice--;		
+			var qimg = document.getElementById("imagen");
+			qimg.src=vimg[Indice];			
+			document.getElementById("nham").value=pedidos[Indice];
+			document.getElementById("titulo").value=vtit[Indice];
+		}
+		function siguiente(){
+			Indice++;			
+		    if (Indice>5) Indice=0;
+		    var qimg = document.getElementById("imagen");
+			qimg.src=vimg[Indice];
+			document.getElementById("nham").value=pedidos[Indice];
+			document.getElementById("titulo").value=vtit[Indice];
+		}
+	</script>
+</head>
+<body>
+    
+<div class="container">
+<img src='muebles.jpg'>
+<form target="_blank" name='ventas' action='risa.php'
+      method='POST'>
+    
+    	
+								    
+<input type='text' id='titulo' value="mesa 150 Bs"><br>
+<img src='mesa.jpg' class="control" id="imagen">
+            <div class="row">
+				<div class="col-xs-4 col-md-12">
+				    <div class="span2">
+# comprado: <input type="text" readonly id="nham" value=0>
+                    </div>
+                    <div class="span2">
+Total a Pagar: <input type="text" readonly id="tp" value=0 name="tp">
+                </div></div>
+            </div>
+<input type='hidden' name='x' id='x'>
+<input type='button' value="<" onclick="anterior()">
+<input type='button' value="Comprar" onclick="comprar()">
+<input type='button' value="Devolver" onclick="devolver()">
+<input type='button' value=">" onclick="siguiente()"><br>
+
+<input type="button" value="M" onclick="vende(0)">
+<input type="button" value="S" onclick="vende(1)">
+<input type="button" value="C" onclick="vende(2)">
+<input type="button" value="R" onclick="vende(3)">
+<input type="button" value="CO" onclick="vende(4)">
+
+<br>
+<input type='submit' value="FINALIZAR COMPRA">
+</form>
+
+</div>
+
+</body>
+</html>
